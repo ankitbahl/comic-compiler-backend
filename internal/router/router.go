@@ -16,11 +16,14 @@ func New() *chi.Mux {
 		AllowCredentials: true,
 	}))
 
-	r.Get("/comics", controller.Comics)
-	r.Get("/comic-info", controller.ComicInfo)
-	r.Post("/compile-comic", controller.CompileComic)
-	r.Get("/comic-progress", controller.GetJobProgress)
-	r.Post("/download-comic", controller.DownloadComic)
-	r.Get("/downloadable-comics", controller.GetDownloadableComics)
+	r.Route("/api", func(r chi.Router) {
+		r.Get("/comics", controller.Comics)
+		r.Get("/comic-info", controller.ComicInfo)
+		r.Post("/compile-comic", controller.CompileComic)
+		r.Get("/comic-progress", controller.GetJobProgress)
+		r.Post("/download-comic", controller.DownloadComic)
+		r.Get("/downloadable-comics", controller.GetDownloadableComics)
+	})
+
 	return r
 }
